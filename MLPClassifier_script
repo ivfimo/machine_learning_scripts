@@ -1,0 +1,88 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import roc_auc_score, f1_score, accuracy_score, precision_score, recall_score, confusion_matrix
+
+# Upload the MLPClassifier_dataset
+data = pd.read_csv("data path")
+
+# Separate features and target variable
+X = data.drop(columns=['msd'])
+y = data['msd']
+
+# Split data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Standardize features by removing the mean and scaling to unit variance
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Initialize the ANN classifier
+ann_classifier = MLPClassifier(activation='tanh', alpha= 0.01, hidden_layer_sizes= (280,), max_iter=8000, random_state=42)
+
+# Train the classifier
+ann_classifier.fit(X_train_scaled, y_train)
+
+# Make predictions on the test set
+y_pred = ann_classifier.predict(X_test_scaled)
+
+# Calculate evaluation metrics
+roc_auc = roc_auc_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Print the best hyperparameters and evaluation metrics
+print("ROC AUC Score:", roc_auc)
+print("F1 Score:", f1)
+print("Accuracy Score:", accuracy)
+print("Precision Score:", precision)
+print("Recall Score:", recall)
+print("Confusion Matrix:", conf_matrix)
+
+# Get the weights connecting the input and hidden layers
+weights_input_hidden = ann_classifier.coefs_[0]
+
+# Calculate the absolute sum of weights for each feature
+variable_importance = np.abs(weights_input_hidden).sum(axis=1)
+
+# Get feature names
+feature_names = X.columns
+
+# Combine feature names and their importance scores
+feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': variable_importance})
+feature_importance_df = feature_importance_df.sort_values(by='Importance', ascending=False)
+
+# Print variable importance for each feature in descending order
+print("Variable Importance:")
+print(feature_importance_df)
+
+# Generate a barplot of variable importance
+plt.figure(figsize=(10,6))
+plt.barh(feature_importance_df['Feature'], feature_importance_df['Importance'])
+plt.xlabel('Importance')
+plt.ylabel('Feature')
+plt.title('Variable Importance')
+plt.show()
+
+import shap
+
+# Create SHAP explainer object
+explainer = shap.KernelExplainer(ann_classifier.predict, X_train_scaled)
+
+# Get SHAP values for the test set
+shap_values = explainer.shap_values(X_test_scaled)
+
+# Summary plot (for binary classification models)
+if isinstance(shap_values, list) and len(shap_values) > 1:
+    # In binary classification, shap_values[1] corresponds to the positive class
+    shap.summary_plot(shap_values[1], X_test_scaled, feature_names=feature_names)
+else:
+    # In case it's a single output model
+    shap.summary_plot(shap_values, X_test_scaled, feature_names=feature_names)
