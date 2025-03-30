@@ -1,4 +1,4 @@
-# Here is the ML training for Deutsch et al., 2024 (https://pubmed.ncbi.nlm.nih.gov/39314370/)
+# Here is the ML training for (Deutsch et al., 2024 https://pubmed.ncbi.nlm.nih.gov/39314370/)
 # **TensorFlow-Keras Binary Classification Model**
 -   1. Create a Google Colab file https://colab.research.google.com/#create=true (Google Account required)
     2. Ensure you have the following Python libraries installed !pip install pandas numpy matplotlib scikit-learn tensorflow shap
