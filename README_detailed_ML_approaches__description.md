@@ -38,7 +38,7 @@
 #
 #
 # **README: Binary Classification using MLPClassifier**
--   This Python script implements a binary classification model using a Multi-Layer Perceptron (MLP) classifier from scikit-learn. The script preprocesses the dataset, trains an artificial neural network (ANN), evaluates its performance using multiple metrics, and extracts feature importance based on model weights. Using your Google Colab file (Google account needed) i. copy and paste the script and upload the input MLPClassifier_dataset.csv file, and ii. to visualize each STEP by STEP details on the approach: https://t.ly/4FLJ0
+-   This Python script implements a binary classification model using a Multi-Layer Perceptron (MLP) classifier from scikit-learn. The script preprocesses the dataset, trains an artificial neural network (ANN), evaluates its performance using multiple metrics, and extracts feature importance based on model weights. Using your Google Colab file (Google account needed) i. copy and paste the script and upload the input MLPClassifier_dataset.csv file, and ii. to visualize each STEP by STEP details on the approach: https://colab.research.google.com/drive/1g6dRzR1pDQGJFI4-PaLagx01-lBr8SqY?usp=sharing
 ### **1. Load the Dataset**
 -   The script reads a CSV file containing the dataset
 ### **2. Data Preprocessing**
