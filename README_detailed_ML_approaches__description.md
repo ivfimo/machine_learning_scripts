@@ -1,5 +1,5 @@
 # **README: TensorFlow-Keras Binary Classification Model**
--   This README explains the step-by-step process used in the Python script to develop, train, evaluate, and interpret a binary classification model using TensorFlow-Keras. The dataset and code focus on machine learning techniques such as data preprocessing, model development, and SHAP-based explainability. Using your Google Colab file (Google account needed) i. copy and paste the script and upload the input TF-K_dataset.csv file, and ii. to visualize each STEP by STEP details on the approach: https://t.ly/V8fe8
+-   This README explains the step-by-step process used in the Python script to develop, train, evaluate, and interpret a binary classification model using TensorFlow-Keras. The dataset and code focus on machine learning techniques such as data preprocessing, model development, and SHAP-based explainability. Using your Google Colab file (Google account needed) i. copy and paste the script and upload the input TF-K_dataset.csv file, and ii. to visualize each STEP by STEP details on the approach:(https://colab.research.google.com/drive/1g6dRzR1pDQGJFI4-PaLagx01-lBr8SqY?usp=sharing)
 ### **1. Loading the Dataset** 
 -   The dataset should be in CSV format, and you can upload it to your Google Colab environment
 -   The target column is identified as the class, and the rest are features
